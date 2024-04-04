@@ -1,0 +1,8 @@
+﻿@model Real_Time_Chat_Application_Backend.ConnectedUsers;
+
+<div class="col-2"><h2>Online Connected User List</h2></div>
+
+@foreach (var user in Real_Time_Chat_Application_Backend.ConnectedUsers.myConnectedUsers)
+{
+    <li>@user;</li>
+}

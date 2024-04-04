@@ -1,0 +1,78 @@
+﻿@model Real_Time_Chat_Application_Backend.Database.UserRegistration;
+
+<style>
+    .row {
+        place-content: center;
+        padding: 8px;
+    }
+
+    form {
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+</style>
+
+<h2 class="text-center">Register Now</h2>
+<hr />
+
+<body>
+
+    <form asp-controller="Account" asp-action="Register" method="post">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", type = "text", required = "required", name = "Username", autocomplete = "off", placeholder = "Username or Email" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", required = "required", name = "Password", autocomplete = "off", placeholder = "Password" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Nickname, new { @class = "form-control", type = "text", required = "required", name = "Nickname", autocomplete = "off", placeholder = "Nickname" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="display:flex; justify-content:center">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4" style="text-align:center">
+                <span>Back to <a class="login" asp-controller="Account" asp-action="Login">Login</a></span>
+            </div>
+        </div>
+
+    </form>
+
+</body>
+
+@{
+    var alertMessage = TempData["AlertMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(alertMessage))
+{
+    <script>
+        alert('@alertMessage');
+    </script>
+}
