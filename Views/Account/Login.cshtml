@@ -30,7 +30,7 @@
     <form asp-controller="Account" asp-action="Login" method="post">
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-4">
                 <div class="form-group">
                     @Html.TextBoxFor(m => m.Username, new { @class = "form-control", type = "text", required = "required", name = "Username", autocomplete = "off", placeholder = "Username or Email" })
                 </div>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-4">
                 <div class="form-group">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", required = "required", name = "Password", autocomplete = "off", placeholder = "Password" })
                 </div>
@@ -46,13 +46,13 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-4">
                 <span><a class="forget" asp-controller="Account" asp-action="Forget">Forget Password?</a></span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
                 <div class="form-group" style="display:flex; justify-content:center">
                     <button class="btn btn-primary" type="submit">Login</button>
                 </div>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4" style="text-align:center">
+            <div class="col-4" style="text-align:center">
                 <span>Don't have an account yet? <a class="register" asp-controller="Account" asp-action="Register">Register Now</a></span>
             </div>
         </div>

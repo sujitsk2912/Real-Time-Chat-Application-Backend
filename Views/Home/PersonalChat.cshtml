@@ -1,0 +1,138 @@
+﻿@model Real_Time_Chat_Application_Backend.Database.UserRegistration;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+
+    body{
+        background-color:aqua;
+        padding:20px;
+    }
+
+    .row {
+        place-content: center;
+        padding: 8px;
+    }
+
+    form {
+        border-radius: 10px;
+        padding: 15px;
+        background-color:beige;
+    }
+
+    .Receive{
+        text-align:left;
+        color:red;
+        font-size:18px;
+    }
+
+    .Send {
+        text-align:right;
+        color:green;
+        font-size: 18px;
+    }
+</style>
+
+
+<h2 class="text-center">Chat Here</h2>
+<hr />
+
+<body>
+
+    <form asp-controller="Home" asp-action="PersonalChat" method="post">
+
+        <div class="row">
+            <div class="col-md-1">
+                <span>User</span>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="text" id="userInput" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <hr />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="messagesList"></ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <hr />
+            </div>
+        </div>
+
+        <div class="row" style="border:2px solid red; width:100%">
+            @* <div class="col-md-1">
+                <span>Message</span>
+            </div> *@
+
+            <div class="col">
+                
+                    <input class="form-control" type="text" id="messageInput" />
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="display:flex; justify-content:center">
+                    <input type="button" class="btn btn-primary " id="sendButton" value="Send Message" onclick="send" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/ConnectedHub").build();
+
+    connection.on("ReceiveMessage", function (user, message) {
+        var li = document.createElement("li");
+
+        li.textContent = `${user} : ${message}`;
+        li.classList.add('Receive');
+
+        document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+
+            if (this.onclick) {
+                if (message !== "") {
+                    connection.invoke("SendMessage", user, message).then(function () {
+                        messageInput.value = "";
+                    var ri = document.createElement("li");
+                        ri.classList.add('Send');
+                    }).catch(function (err) {
+                        return console.error(err.toString());
+                    });
+                }
+            }
+
+        event.preventDefault();
+    });
+</script>

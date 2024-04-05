@@ -13,7 +13,7 @@ namespace Real_Time_Chat_Application_Backend.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult PersonalChat()
         {
             return View();
         }

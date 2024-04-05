@@ -24,10 +24,12 @@ namespace Real_Time_Chat_Application_Backend.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var status = accountDbContext.UserRegistrations.Where(m => m.Username == userLogin.Username && m.Password == userLogin.Password).FirstOrDefault();
-                    if (status != null)
+                    var user = accountDbContext.UserRegistrations.Where(m => m.Username == userLogin.Username && m.Password == userLogin.Password).FirstOrDefault();
+                    if (user != null)
                     {
-                        return RedirectToAction("Index", "Home");
+                        userLogin.Nickname = user.Nickname;
+                        userLogin.UserId = user.UserId;
+                        return RedirectToAction("PersonalChat", "Home");
                     }
                     else
                     {
